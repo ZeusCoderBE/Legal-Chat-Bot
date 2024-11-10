@@ -1,0 +1,251 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+.chat-container {
+    display: flex;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho container */
+}
+
+.sidebar {
+    background-color: #F9F9F9; /* Nền trắng cho thanh #171717 */
+    width: 250px; /* Thay đổi kích thước thanh sidebar */
+    transition: width 0.3s;
+    position: relative;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho sidebar */
+}
+
+.sidebar-content {
+    display: block; /* Đảm bảo sidebar-content luôn hiển thị khi sidebar mở */
+    padding: 15px; /* Giữ lại padding nếu đã có */
+    margin-top: 50px; /* Thêm khoảng cách phía trên để tránh toggle-button */
+    color: black;
+}
+
+.sidebar-content.active {
+    display: block; /* Hiện nội dung khi active */
+}
+
+/* Đặt nút toggle-button vào bên trái */
+.toggle-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 1; /* Đảm bảo nút hiển thị phía trên các phần tử khác */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+}
+
+.sidebar ul li a {
+    color: black; /* Màu chữ đen cho liên kết */
+    text-decoration: none;
+    display: block; /* Thay đổi để toàn bộ khu vực có thể nhấn */
+    transition: all 0.3s ease; /* Thêm hiệu ứng chuyển đổi mượt */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #ECECEC; /* Thay đổi màu nền khi hover */
+    padding-left: 15px; /* Tăng padding bên trái khi hover */
+    padding-right: 15px; /* Tăng padding bên phải khi hover */
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 5px;
+    background-color: #ffffff;
+    color: #000000;
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.header h2 {
+    margin: 0;
+    padding-left: 10px;
+}
+
+.chat-box {
+    flex: 1;
+    padding: 15px;
+    background-color: #ffffff; /* Đổi màu nền thành #212121 */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chat-message.bot .message {
+    background-color: #ffffff; /* Màu sắc cho tin nhắn bot */
+    color: black; /* Đổi màu chữ thành trắng */
+    border-radius: 10px 10px 10px 0; /* Bo tròn góc tin nhắn bot */
+    align-self: flex-start; /* Căn trái */
+}
+
+.chat-message.user .message {
+    background-color: #F3F3F3; /* Màu sắc cho tin nhắn người dùng */
+    color: black;
+    align-self: flex-end;
+    border-radius: 10px 10px 0 10px; /* Bo tròn góc tin nhắn người dùng */
+    align-self: flex-end; /* Căn phải */
+}
+
+.message {
+    padding: 10px 15px;
+    max-width: 70%;
+    margin-left: 10px;
+    word-wrap: break-word; /* Ngắt dòng nếu tin nhắn quá dài */
+}
+
+.avatar {
+    width: 45px; /* Kích thước avatar nhỏ hơn */
+    height: 45px; /* Kích thước avatar nhỏ hơn */
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ avatar */
+    background-position: center; /* Căn giữa hình ảnh */
+}
+
+.input-area {
+    display: flex;
+    padding: 15px;
+    background-color: #FFFFFF; /* Đổi màu nền thành #212121 */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #F4F4F4; /* Đường viền cho input */
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #F4F4F4; /* Đổi màu nền thành #2F2F2F */
+    color: black; /* Đổi màu chữ thành trắng */
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #F9F9F9; /* Màu nền mặc định */
+    color: #181818; /* Màu chữ mặc định */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ECECEC;
+}
+
+
+.chatbot-image {
+    width: 50px; /* Chiều rộng của ảnh */
+    height: auto; /* Tự động điều chỉnh chiều cao */
+    margin-bottom: 10px; /* Khoảng cách phía dưới ảnh */
+}
+
+
+/*------------------------------------------------------*/
+
+
+.chat-message {
+    display: flex;
+    justify-content: flex-start; /* Tin nhắn của chatbot căn trái */
+    align-items: flex-start; /* Đảm bảo avatar nằm trên cùng */
+    margin-bottom: 10px;
+}
+
+.chat-message.user {
+    justify-content: flex-end; /* Tin nhắn của người dùng căn phải */
+}
+
+button.active { /* Thêm lớp .active có hiệu ứng như :hover */
+    background-color: black; /* Màu nền active */
+    color: white; /* Màu chữ active */
+}
+
+/* Trạng thái hover khi nút đang ở trạng thái active */
+button.active:hover {
+    background-color: #494949; /* Màu nền khi hover */
+    color: #FCFCFC; /* Màu chữ khi hover */
+}
+
+button:disabled {
+    background-color: #D7D7D7;
+    color: #F4F4F4;
+    cursor: not-allowed;
+}
+
+/* Cập nhật CSS cho hiệu ứng chuyển động */
+@keyframes wave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); } /* Hiệu ứng lên xuống 5px */
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: black;
+}
+
+.typing-indicator span {
+    animation: wave 1.9s ease-in-out infinite; /* Tổng thời gian chu kỳ là 1.9s, gồm 0.9s chuyển động và 1s nghỉ */
+    display: inline-block;
+    margin-right: 2px; /* Khoảng cách 2px giữa các dấu chấm */
+}
+
+.typing-indicator span:last-child {
+    margin-right: 0; /* Xóa khoảng cách sau dấu chấm cuối cùng */
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0s; /* Dấu chấm đầu tiên bắt đầu ngay lập tức */
+}
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.3s; /* Dấu chấm thứ hai bắt đầu sau 0.3s */
+}
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.6s; /* Dấu chấm thứ ba bắt đầu sau 0.6s */
+}
+
+/* Đặt nút toggle-button vào bên trái */
+.toggle-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 1; /* Đảm bảo nút hiển thị phía trên các phần tử khác */
+}
+
+/* Định vị toggle-button trong header khi sidebar đóng */
+.header .toggle-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
