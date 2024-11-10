@@ -6,7 +6,7 @@ The **Legal Advisory Chatbot System** is designed to assist users by answering q
 
 ![Ý Tưởng](https://github.com/user-attachments/assets/874bc33a-f23b-40e0-9a89-744df50e31cd)
 
-
+![image](https://github.com/user-attachments/assets/2ff9bc4e-6e4c-4ccb-bdff-3f4f05553bf7)
 ## Features
 
 - **Vietnamese Law Knowledge Base**: The chatbot is built upon a large dataset of Vietnamese legal documents, ensuring that the responses are based on reliable and official sources.
