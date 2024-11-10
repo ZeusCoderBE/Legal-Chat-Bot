@@ -9,7 +9,7 @@ The **Legal Advisory Chatbot System** is designed to assist users by answering q
 
 ## Demo
 
-link:https://drive.google.com/file/d/1yZiQE6HP7DzfEP4Oy8iAac4jX9QoFmsB/view?usp=sharing
+**link** :https://drive.google.com/file/d/1yZiQE6HP7DzfEP4Oy8iAac4jX9QoFmsB/view?usp=sharing
 
 ## Features
 
