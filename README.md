@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# Law_ChatBot
-
-Các biến riêng tư được đặt trong file .env, nếu có thay đổi chỉ cần thay đổi bên trong đó
-=======
 # Legal Advisory Chatbot System
 
 ## Description 
@@ -67,4 +62,3 @@ By using Flask and Docker, the chatbot can be easily deployed to any cloud platf
 ## Conclusion
 
 The **Legal Advisory Chatbot System** is an advanced AI-driven solution designed to provide instant, accurate, and actionable legal information based on Vietnamese law. Through the use of cutting-edge NLP techniques, vector databases, and scalable deployment tools, this system ensures that users have access to relevant legal knowledge at their fingertips. Whether you're a student, legal professional, or anyone seeking legal advice, this chatbot makes navigating the complex legal landscape of Vietnam easier and more efficient.
->>>>>>> 980b7aebc7fb2fa839876e07f6789572a9ebe1ae
