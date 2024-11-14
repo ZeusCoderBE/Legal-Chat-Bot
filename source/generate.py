@@ -4,6 +4,7 @@ from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
 model = AutoModelForQuestionAnswering.from_pretrained("quanghuy123/fine-tuning-bert-for-QA",token='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')
 tokenizer = AutoTokenizer.from_pretrained('google-bert/bert-base-multilingual-cased')
 MODEL_RERANK = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
@@ -12,6 +13,7 @@ MAX_LENGTH = 512
 STRIDE = 380
 N_BEST = 180
 MAX_ANSWER_LENGTH = 2000
+
 def predict(contexts, question):
     answer_final = []
     for context in contexts:

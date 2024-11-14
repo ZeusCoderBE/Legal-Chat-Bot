@@ -1,6 +1,7 @@
 import os
 import source.gemini_Generate_Queries as g_G_Q
 import re
+
 from dotenv import load_dotenv
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from qdrant_client.models import Filter, FieldCondition, MatchValue
@@ -8,9 +9,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 from langchain_qdrant import Qdrant
+
 load_dotenv()
-URL_QDRANT_3 = os.getenv("URL_QDRANT_3")
-API_QDRANT_3 = os.getenv("API_QDRANT_3")
+# URL_QDRANT_3 = os.getenv("URL_QDRANT_3")
+# API_QDRANT_3 = os.getenv("API_QDRANT_3")
+URL_QDRANT_LOCAL = os.getenv("URL_QDRANT_LOCAL")
 EXIST_ASMK_COLLECTION_NAME = os.getenv("EXIST_ASMK_COLLECTION_NAME")
 EXIST_AMK_COLLECTION_NAME = os.getenv("EXIST_AMK_COLLECTION_NAME")
 
@@ -28,18 +31,20 @@ rerank_model = SentenceTransformer(MODEL_RERANK)
 
 exist_ASMK_Collection = Qdrant.from_existing_collection(
     embedding = embeddings_bkai,
-    url = URL_QDRANT_3,
-    api_key = API_QDRANT_3,
-    prefer_grpc=True,
+    # url = URL_QDRANT_3,
+    # api_key = API_QDRANT_3,
+    # prefer_grpc=True,
+    url = URL_QDRANT_LOCAL,
     collection_name = EXIST_ASMK_COLLECTION_NAME,
 	metadata_payload_key="metadata"
 )
 
 exist_AMK_Collection = Qdrant.from_existing_collection(
     embedding = embeddings_bkai,
-    url = URL_QDRANT_3,
-    api_key = API_QDRANT_3,
-    prefer_grpc=True,
+    # url = URL_QDRANT_3,
+    # api_key = API_QDRANT_3,
+    # prefer_grpc=True,
+    url = URL_QDRANT_LOCAL,
     collection_name = EXIST_AMK_COLLECTION_NAME,
 	metadata_payload_key="metadata"
 )

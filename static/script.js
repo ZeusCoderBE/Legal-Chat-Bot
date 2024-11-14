@@ -43,7 +43,7 @@ $('#user-query').on('keydown', function(event) {
     }
 });
 
-function typeMessage($element, message) {
+function typeMessage($element, message, callback) {
     const words = message.split(" ");
     let index = 0;
 
@@ -54,13 +54,14 @@ function typeMessage($element, message) {
         if (index < words.length) {
             $element.append(words[index] + " ");
             index++;
-            $chatOutput.scrollTop($chatOutput.prop('scrollHeight'));
+            $element.parent().scrollTop($element.parent().prop('scrollHeight'));
         } else {
             clearInterval(interval);
             isTyping = false; // Kết thúc trạng thái gõ
             updateSendButtonState(); // Cập nhật trạng thái nút Send sau khi hoàn thành
+            if (callback) callback(); // Gọi callback sau khi in xong
         }
-    }, 150); // Điều chỉnh tốc độ gõ chữ (150ms mỗi từ)
+    }, 50); // Điều chỉnh tốc độ gõ chữ (50ms mỗi từ)
 }
 
 function updateSendButtonState() {
@@ -72,13 +73,106 @@ function updateSendButtonState() {
     }
 }
 
+// Hàm tạo thẻ cho lst_Relevant_Documents
+function displayRelevantDocuments(documents) {
+    const container = $('#relevant-documents-container');
+    container.empty(); // Xóa các thẻ cũ nếu có
+
+    // Tạo div chứa tiêu đề
+    const title = $('<div class="references-title">Trích dẫn tham khảo</div>');
+    container.append(title);
+
+    // Tạo một div riêng cho các thẻ tài liệu
+    const documentsWrapper = $('<div class="documents-wrapper"></div>');
+    container.append(documentsWrapper);
+
+    documents.forEach((doc, index) => {
+        // Giới hạn nội dung hiển thị (ví dụ: 100 ký tự đầu tiên)
+        const shortContent = doc.length > 100 ? doc.substring(0, 100) + '...' : doc;
+
+        // Tạo thẻ cho document
+        const docElement = $(`
+            <div class="relevant-document" data-full-content="${doc}">
+                ${shortContent}
+            </div>
+        `);
+
+        // Thêm sự kiện click để mở rộng nội dung đầy đủ
+        docElement.on('click', function() {
+            const fullContent = $(this).data('full-content');
+            openFullscreenDocument(fullContent);
+        });
+
+        documentsWrapper.append(docElement);
+    });
+}
+
+// Hàm mở nội dung đầy đủ trong modal
+function openFullscreenDocument(content) {
+    // Thay thế ký tự xuống dòng bằng thẻ <br> để hiển thị cách dòng đúng
+    const formattedContent = content.replace(/\n/g, "<br>");
+
+    // Tạo overlay để hiển thị nội dung phóng to
+    const overlay = $(`
+        <div class="fullscreen-overlay">
+            <div class="fullscreen-document">
+                <div class="document-content">${formattedContent}</div>
+            </div>
+        </div>
+    `);
+
+    // Thêm sự kiện click vào overlay để đóng khi nhấp ra bên ngoài tài liệu
+    overlay.on('click', function(e) {
+        if ($(e.target).is('.fullscreen-overlay')) {
+            overlay.remove(); // Đóng overlay khi click vào vùng tối
+        }
+    });
+
+    // Thêm overlay vào body
+    $('body').append(overlay);
+}
+
+// Gọi hàm displayRelevantDocuments khi có dữ liệu từ chatbot
+function processResponse(data) {
+    const { answer, lst_Relevant_Documents } = data;
+    let formattedAnswer = "";
+
+    // Chuẩn bị nội dung phản hồi của chatbot với xuống dòng bằng <br>
+    if (Array.isArray(answer)) {
+        answer.forEach((ans, index) => {
+            formattedAnswer += `Answer ${index + 1}: ${ans.replace(/\n/g, "<br>")}<br><br>`;
+        });
+    } else {
+        formattedAnswer = answer.replace(/\n/g, "<br>");
+    }
+
+    // Tạo một phần tử trống để từng từ sẽ được gõ vào đó
+    const $chatOutput = $('#chat-output');
+    const $botMessage = $(`
+        <div class="chat-message bot">
+            <div class="avatar bot-avatar" style="background-image: url('https://png.pngtree.com/png-vector/20230225/ourmid/pngtree-smart-chatbot-cartoon-clipart-png-image_6620453.png');"></div>
+            <div class="message"></div>
+        </div>
+    `);
+    $chatOutput.append($botMessage);
+
+    // Gọi typeMessage với callback để hiển thị tài liệu liên quan sau khi in xong câu trả lời
+    typeMessage($botMessage.find(".message"), formattedAnswer, () => {
+        // Gọi hàm để hiển thị các thẻ từ lst_Relevant_Documents
+        displayRelevantDocuments(lst_Relevant_Documents);
+    });
+}
+
+// Điều chỉnh hàm sendMessage để sử dụng processResponse
 function sendMessage() {
     const query = $userInput.val().trim();
-    if (!query || isLoading || isTyping) return; // Không gửi tin nếu đang gõ, input trống, hoặc đang chờ phản hồi
+    if (!query || isLoading || isTyping) return;
+
+    // Xóa nội dung của relevant-documents-container
+    $('#relevant-documents-container').empty();
 
     $sendButton.prop('disabled', true).removeClass('active').addClass('disabled');
-
-    isLoading = true; // Bắt đầu trạng thái chờ phản hồi
+    isLoading = true;
     $('#loading-indicator').text("Loading...");
 
     const $chatOutput = $('#chat-output');
@@ -89,7 +183,7 @@ function sendMessage() {
         </div>
     `);
 
-    $userInput.val(''); // Xóa nội dung input sau khi gửi
+    $userInput.val('');
     $chatOutput.scrollTop($chatOutput.prop('scrollHeight'));
 
     const $typingIndicator = $(`
@@ -109,32 +203,10 @@ function sendMessage() {
         success: function(data) {
             setTimeout(() => {
                 $typingIndicator.remove();
-
-                let formattedAnswer = "";
-                if (Array.isArray(data.answer)) {
-                    data.answer.forEach((answer, index) => {
-                        formattedAnswer += `Answer ${index + 1}: ${answer}\n\n`;
-                    });
-                } else {
-                    formattedAnswer = data.answer;
-                }
-                formattedAnswer = formattedAnswer.replace(/\n/g, "<br>");
-                formattedAnswer = formattedAnswer.replace(/\n\n/g, "<br>");
-
-                const $botMessage = $(`
-                    <div class="chat-message bot">
-                        <div class="avatar bot-avatar" style="background-image: url('https://png.pngtree.com/png-vector/20230225/ourmid/pngtree-smart-chatbot-cartoon-clipart-png-image_6620453.png');"></div>
-                        <div class="message"></div>
-                    </div>
-                `);
-                $chatOutput.append($botMessage);
-
-                // Sử dụng hiệu ứng gõ từng từ
-                typeMessage($botMessage.find(".message"), formattedAnswer);
-
+                processResponse(data); // Sử dụng processResponse để xử lý phản hồi
                 $chatOutput.scrollTop($chatOutput.prop('scrollHeight'));
-                isLoading = false; // Hoàn tất trạng thái chờ phản hồi
-                updateSendButtonState(); // Cập nhật trạng thái nút Send sau khi hoàn thành
+                isLoading = false;
+                updateSendButtonState();
                 $('#loading-indicator').text("");
             }, 800);
         }
