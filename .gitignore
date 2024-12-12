@@ -1,3 +1,4 @@
 /model/
 /source_research/
 /qdrant_data/
+*.pyc

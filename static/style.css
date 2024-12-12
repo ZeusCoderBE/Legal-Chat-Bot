@@ -15,7 +15,7 @@ body {
 
 .sidebar {
     background-color: #F9F9F9; /* Nền trắng cho thanh #171717 */
-    width: 250px; /* Thay đổi kích thước thanh sidebar */
+    width: 300px; /* Thay đổi kích thước thanh sidebar */
     transition: width 0.3s;
     position: relative;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho sidebar */
@@ -208,12 +208,12 @@ button:disabled {
     50% { transform: translateY(-5px); } /* Hiệu ứng lên xuống 5px */
 }
 
-.typing-indicator {
+/* .typing-indicator {
     display: flex;
     align-items: center;
     font-size: 20px;
     color: black;
-}
+} */
 
 .typing-indicator span {
     animation: wave 1.9s ease-in-out infinite; /* Tổng thời gian chu kỳ là 1.9s, gồm 0.9s chuyển động và 1s nghỉ */
@@ -265,8 +265,7 @@ button:disabled {
 }
 
 .relevant-document {
-    width: 200px; /* Đặt chiều rộng cho các thẻ */
-    padding: 15px;
+    padding: 5px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -284,6 +283,12 @@ button:disabled {
 
 .relevant-documents-container {
     margin-left: 70px;
+}
+
+/* Định nghĩa kiểu dáng cho thẻ <hr> */
+.custom-hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 /* Định dạng overlay khi mở rộng tài liệu */
@@ -317,4 +322,64 @@ button:disabled {
     color: #333;
     line-height: 1.5;
     text-align: left;
+}
+
+/*-------------------------------------------------------------------*/
+
+.chat-sessions {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.chat-session {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-session:hover {
+    background-color: #ECECEC;
+}
+
+.chat-session-content {
+    font-size: 14px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mặc định Clear Chat bị disabled */
+#clear-chat.disabled {
+    color: #A9A9A9; /* Màu xám nhạt */
+    pointer-events: none; /* Vô hiệu hóa click */
+    font-weight: normal; /* Chữ không in đậm */
+    text-decoration: none; /* Bỏ gạch chân */
+}
+
+/* Khi active (class 'active' được thêm vào) */
+#clear-chat.active {
+    color: #FF0000; /* Màu đỏ */
+    font-weight: bold; /* In đậm */
+    pointer-events: auto; /* Cho phép click */
+}
+
+/* Hover khi active */
+#clear-chat.active:hover {
+    color: #B22222; /* Màu đỏ tối hơn */
+    font-weight: bold; /* In đậm */
+}
+
+.model-name {
+    font-weight: bold; /* In đậm */
+    color: #1e90ff; /* Màu xanh biển */
+}
+
+/* Khi mô hình là Gemini */
+.model-name.gemini-model {
+    color: #28a745; /* Màu xanh lá cây */
 }
