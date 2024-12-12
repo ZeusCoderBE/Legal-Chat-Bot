@@ -1,12 +1,16 @@
 # Legal Advisory Chatbot System
 ## Description 
 
-**Link Demo Product** :https://drive.google.com/file/d/1SgytxnMJxrxJQweihBwWTkNCkUbj9jhb/view?usp=drive_link
+
 
 The **Legal Advisory Chatbot System** is designed to assist users by answering questions related to Vietnamese law. By leveraging advanced Natural Language Processing (NLP) techniques, this system can analyze and retrieve relevant legal documents from an extensive collection of official Vietnamese legal texts. The core functionality of the chatbot includes providing users with accurate and up-to-date legal information, helping them understand complex legal terminology, and offering clear, actionable advice based on Vietnamese legal documents. This system is highly valuable for individuals, businesses, and legal professionals seeking quick access to legal knowledge.
 
-![Ý Tưởng](https://github.com/user-attachments/assets/874bc33a-f23b-40e0-9a89-744df50e31cd)
-![image](https://github.com/user-attachments/assets/16025e5a-780b-48e1-aeed-375bc26567ec)
+ ![Law_ChatBot (2) drawio](https://github.com/user-attachments/assets/101b6afc-21b8-4cd9-ba37-14282bfc684e)
+
+## Demo
+
+![image](https://github.com/user-attachments/assets/443b303d-f11b-44ef-9299-63f5f13a5936)
+
 
 
 ## Features
