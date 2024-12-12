@@ -12,10 +12,10 @@ The **Legal Advisory Chatbot System** is designed to assist users by answering q
 ![image](https://github.com/user-attachments/assets/443b303d-f11b-44ef-9299-63f5f13a5936)
 
 ## Model Fine-Tuned
-'''
-**Link:quanghuy123/BERT-LAW**
+
+**Link Model Bert : [quanghuy123/BERT-LAW](https://huggingface.co/quanghuy123/BERT-LAW)**
 **Author : Đặng Nguyễn Quang Huy**
-'''
+
 
 ## Features
 
