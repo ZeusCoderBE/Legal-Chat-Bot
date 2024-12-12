@@ -11,7 +11,11 @@ The **Legal Advisory Chatbot System** is designed to assist users by answering q
 
 ![image](https://github.com/user-attachments/assets/443b303d-f11b-44ef-9299-63f5f13a5936)
 
-
+## Model Fine-Tuned
+'''
+**Link:quanghuy123/BERT-LAW**
+**Author : Đặng Nguyễn Quang Huy**
+'''
 
 ## Features
 
@@ -33,7 +37,7 @@ The core of the system relies on high-quality legal documents obtained from trus
 
 To optimize the chatbot's performance and improve the relevance of its responses, I employed the following techniques:
 
-1. **BERT Fine-Tuning for Question-Answering (QA)**: Fine-tuning the BERT model allows the chatbot to understand complex legal queries and provide context-aware responses. BERT is trained on a custom dataset tailored to legal language, improving the model's understanding of legal terminology and phrasing.
+1. **BERT Fine-Tuning for Question-Answering (QA)**:BERT-Law is a fine-tuned version of BERT (Bidirectional Encoder Representations from Transformers), focusing on information extraction from legal documents. The model is specifically trained on a custom dataset called UTE_LAW, which consists of approximately 30,000 pairs of legal questions and related documents. The main goal of this model is to extract relevant information from legal text while reducing the costs associated with using third-party APIs.Additionally, the model supports Retrieval-Augmented Generation (RAG), which enhances its ability to handle smaller context windows, thereby optimizing API costs for third-party integrations. RAG is especially useful in scenarios where processing large legal documents in a single request might be inefficient or expensive.
 2. **Re-Ranking Model**: A re-ranking model is implemented to reorder search results based on their relevance. By evaluating the context and query intent, this model ensures that the most relevant legal documents are presented to the user first.
 3. **Embedding Model Optimization**: To improve the quality of search results, I optimized embedding models to map both legal documents and user queries into a shared vector space. This ensures that similar queries and documents are closely matched, improving the chatbot's ability to retrieve relevant content.
 
