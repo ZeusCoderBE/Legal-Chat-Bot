@@ -14,7 +14,8 @@ The **Legal Advisory Chatbot System** is designed to assist users by answering q
 
 ## Model Fine-Tuned
 
-**Link Model Bert Fine-Tuned : [quanghuy123/BERT-LAW](https://huggingface.co/quanghuy123/BERT-LAW)**
+**Link Model Bert Fine-Tuned for Extract : [quanghuy123/BERT-LAW](https://huggingface.co/quanghuy123/BERT-LAW)**
+**Link Model Sentences Transformer for Embedding: [quanghuy123/LEGAL_EMBEDDING](https://huggingface.co/quanghuy123/LEGAL_EMBEDDING)**
 
 **Author : Đặng Nguyễn Quang Huy**
 
